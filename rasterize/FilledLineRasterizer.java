@@ -5,8 +5,8 @@ import raster.RasterBufferedImage;
 
 import java.awt.*;
 
-public class LineRasterizerTrivial extends LineRasterizer {
-    public LineRasterizerTrivial(RasterBufferedImage raster) {
+public class FilledLineRasterizer extends LineRasterizer {
+    public FilledLineRasterizer(RasterBufferedImage raster) {
         super(raster);
     }
 
