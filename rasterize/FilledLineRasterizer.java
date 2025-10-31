@@ -16,7 +16,7 @@ public class FilledLineRasterizer extends LineRasterizer {
     }
 
     @Override
-    public void rasterize(int x1, int y1, int x2, int y2) { //doplnit vysvětlení
+    public void rasterize(int x1, int y1, int x2, int y2) { 
         int dx = x2 - x1;
         int dy = y2 - y1;
 
@@ -34,4 +34,11 @@ public class FilledLineRasterizer extends LineRasterizer {
             y += yInc;
         }
     }
+    
+    /*
+    DDA algoritmus
+    Výhody: jednoduchý, univerzální pro všechny sklony, jednodušší implementace než Bresenham
+    Nevýhody: používá float (zaokrouhlovací chyby a jejich kumulace), pomalejší než Bresenham 
+        (Bresenham používá čistě celočíselné operace a jednoduché sčítání)
+     */
 }
