@@ -41,4 +41,10 @@ public class FilledLineRasterizer extends LineRasterizer {
     Nevýhody: používá float (zaokrouhlovací chyby a jejich kumulace), pomalejší než Bresenham 
         (Bresenham používá čistě celočíselné operace a jednoduché sčítání)
      */
+
+     /*
+    git add .
+    git commit -m "message"
+    git push
+      */
 }
