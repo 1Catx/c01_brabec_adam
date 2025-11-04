@@ -15,6 +15,6 @@ public class Polygon {
     public int size() { return points.size(); }
     public Point first() { return points.get(0); }
     public Point last()  { return points.get(points.size()-1); }
-    public List<Point> points() { return Collections.unmodifiableList(points); }
+    public List<Point> getMyPoints() { return points; }
     public void clear() { points.clear(); }
 }

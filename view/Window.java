@@ -9,7 +9,7 @@ public class Window extends JFrame { //vytvoří instanci *Panelu*, do kterého 
 
     public Window(int width, int heigth) {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setTitle("PGRF1 2024/2025");
+        setTitle("c01_brabec_adam");
         setVisible(true);
 
         panel = new Panel(width, heigth);

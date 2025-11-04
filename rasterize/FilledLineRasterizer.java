@@ -16,7 +16,7 @@ public class FilledLineRasterizer extends LineRasterizer {
     }
 
     @Override
-    public void rasterize(int x1, int y1, int x2, int y2) { 
+    public void rasterize(int x1, int y1, int x2, int y2) { //https://www.geeksforgeeks.org/computer-graphics/dda-line-generation-algorithm-computer-graphics
         int dx = x2 - x1;
         int dy = y2 - y1;
 

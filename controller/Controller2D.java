@@ -10,23 +10,20 @@ import model.Polygon;
 import rasterize.FilledLineRasterizer;
 
 public class Controller2D { //řídící třída, která zpracovává uživatelský vstup (myš) a řídí kreslení
-    private final Panel panel;
+    private final Panel myPanel;
 
     private final Polygon poly = new Polygon();
     private Point preview = null; //dočasná pozice při tažení
     private boolean dragging = false;
-    
-    private final FilledLineRasterizer lr;
 
-    public Controller2D(Panel panel) {
-        this.panel = panel;
-        this.lr = new FilledLineRasterizer(panel.getRaster());
+    public Controller2D(Panel myPanel) {
+        this.myPanel = myPanel;
 
         initListeners();
     }
 
     private void initListeners() {
-        panel.addMouseListener(new MouseAdapter() {
+        myPanel.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
                 dragging = true;
@@ -46,7 +43,7 @@ public class Controller2D { //řídící třída, která zpracovává uživatels
             }
         });
 
-        panel.addMouseMotionListener(new MouseAdapter() {
+        myPanel.addMouseMotionListener(new MouseAdapter() {
             @Override
             public void mouseDragged(MouseEvent e) {
                 if (!dragging) return;
@@ -58,9 +55,9 @@ public class Controller2D { //řídící třída, která zpracovává uživatels
     }
 
     private void drawScene() {
-        panel.getRaster().clear();
+        myPanel.getRaster().clear();
 
-        List<Point> pts = poly.points(); //hotové hrany
+        List<Point> pts = poly.getMyPoints(); //hotové hrany
         for (int i = 0; i < pts.size() - 1; i++) {
             drawLine(pts.get(i), pts.get(i + 1));
         }
@@ -78,12 +75,11 @@ public class Controller2D { //řídící třída, která zpracovává uživatels
             }
         }
 
-        panel.repaint();
+        myPanel.repaint();
     }
 
     private void drawLine(Point a, Point b) {
-        lr.rasterize(a.getX(), a.getY(), b.getX(), b.getY());
-
-        // lr.rasterize(new model.Line(a.getX(), a.getY(), b.getX(), b.getY(), 0xFFFF0000));
+        FilledLineRasterizer raster = new FilledLineRasterizer (myPanel.getRaster());
+        raster.rasterize(a.getX(), a.getY(), b.getX(), b.getY());
     }
 }
