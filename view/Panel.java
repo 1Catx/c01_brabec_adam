@@ -11,6 +11,8 @@ public class Panel extends JPanel { //panel zobrazuje raster - RasterBufferedIma
 
     public Panel(int width, int height) {
         setPreferredSize(new Dimension(width, height));
+        setFocusable(true);
+        requestFocusInWindow();
 
         raster = new RasterBufferedImage(width, height);
     }

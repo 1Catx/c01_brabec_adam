@@ -52,12 +52,22 @@ public class Controller2D { //řídící třída, která zpracovává uživatels
                 drawScene();
             }
         });
+
+        myPanel.addKeyListener(new java.awt.event.KeyAdapter() {
+            @Override
+            public void keyPressed(java.awt.event.KeyEvent e) {
+                if (e.getKeyCode() == java.awt.event.KeyEvent.VK_C) {
+                    clearAll();
+                }
+            }
+        });
     }
 
     private void drawScene() {
         myPanel.getRaster().clear();
 
         List<Point> pts = poly.getMyPoints(); //hotové hrany
+        
         for (int i = 0; i < pts.size() - 1; i++) {
             drawLine(pts.get(i), pts.get(i + 1));
         }
@@ -70,6 +80,7 @@ public class Controller2D { //řídící třída, která zpracovává uživatels
             if (pts.size() >= 1) {
                 drawLine(pts.get(pts.size() - 1), preview);
             }
+
             if (pts.size() >= 2) {
                 drawLine(preview, pts.get(0));
             }
@@ -82,4 +93,14 @@ public class Controller2D { //řídící třída, která zpracovává uživatels
         FilledLineRasterizer raster = new FilledLineRasterizer (myPanel.getRaster());
         raster.rasterize(a.getX(), a.getY(), b.getX(), b.getY());
     }
+
+    private void clearAll() {
+        poly.clear();
+        preview = null;
+        dragging = false;
+
+        myPanel.getRaster().clear();
+        myPanel.repaint();
+    }
+
 }
