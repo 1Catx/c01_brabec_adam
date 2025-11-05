@@ -102,5 +102,4 @@ public class Controller2D { //řídící třída, která zpracovává uživatels
         myPanel.getRaster().clear();
         myPanel.repaint();
     }
-
 }
