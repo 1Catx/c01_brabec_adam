@@ -13,7 +13,11 @@ public class RasterBufferedImage implements Raster { //třída, která drží sa
 
     @Override
     public void setPixel(int x, int y, int color) {
-        // TODO: ošetřit zápis mimo raster
+        int w = image.getWidth();
+        int h = image.getHeight();
+
+        if(x < 0 || x > w) return;
+        if(y < 0 || y > h) return;
         image.setRGB(x, y, color);
     }
 
