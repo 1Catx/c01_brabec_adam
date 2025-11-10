@@ -47,7 +47,10 @@ public class Controller2D { //řídící třída, která zpracovává uživatels
             @Override
             public void mouseDragged(MouseEvent e) {
                 if (!dragging) return;
-                preview = new Point(e.getX(), e.getY());
+
+                Point a = poly.getSize() > 0 ? poly.getPoint(poly.getSize() - 1) : new Point(e.getX(), e.getY());
+
+                preview = shiftMode(a, e.getX(), e.getY(), e.isShiftDown());
 
                 drawScene();
             }
@@ -102,4 +105,24 @@ public class Controller2D { //řídící třída, která zpracovává uživatels
         myPanel.getRaster().clear();
         myPanel.repaint();
     }
+
+    private Point shiftMode(Point a, int mx, int my, boolean shift) {
+        if (!shift) return new Point(mx, my);
+
+        int ax = a.getX(), ay = a.getY();
+        int dx = mx - ax, dy = my - ay;
+        int adx = Math.abs(dx), ady = Math.abs(dy);
+
+        if (adx > 2*ady) {                 //horizontála když delta "x" je větší jak 2* delta "y" 
+            return new Point(mx, ay);
+        } else if (ady > 2*adx) {          //vertikála když delta "y" je větší jak 2* delta "x"
+            return new Point(ax, my);
+        } else {                           //diagonála 45°
+            int d  = Math.min(adx, ady);
+            int sx = Integer.signum(dx);
+            int sy = Integer.signum(dy);
+            return new Point(ax + sx*d, ay + sy*d);
+        }
+    }
+
 }
