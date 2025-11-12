@@ -1,7 +1,6 @@
 package view;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class Window extends JFrame { //vytvoří instanci *Panelu*, do kterého se poté kreslí
 

@@ -11,13 +11,21 @@ import rasterize.FilledLineRasterizer;
 
 public class Controller2D { //řídící třída, která zpracovává uživatelský vstup (myš) a řídí kreslení
     private final Panel myPanel;
+    private final FilledLineRasterizer lr;
 
     private final Polygon poly = new Polygon();
     private Point preview = null; //dočasná pozice při tažení
     private boolean dragging = false;
+    
+    /* barevný gradient */
+    private boolean useGradient = false;
+    private int c1 = 0xFFFF0000;
+    private int c2 = 0xFF0000FF;
 
     public Controller2D(Panel myPanel) {
         this.myPanel = myPanel;
+
+        this.lr = new FilledLineRasterizer(myPanel.getRaster());
 
         initListeners();
     }
@@ -62,6 +70,9 @@ public class Controller2D { //řídící třída, která zpracovává uživatels
                 if (e.getKeyCode() == java.awt.event.KeyEvent.VK_C) {
                     clearAll();
                 }
+                if (e.getKeyCode() == java.awt.event.KeyEvent.VK_G) { 
+                    useGradient = !useGradient;
+                    drawScene(); }
             }
         });
     }
@@ -93,8 +104,8 @@ public class Controller2D { //řídící třída, která zpracovává uživatels
     }
 
     private void drawLine(Point a, Point b) {
-        FilledLineRasterizer raster = new FilledLineRasterizer (myPanel.getRaster());
-        raster.rasterize(a.getX(), a.getY(), b.getX(), b.getY());
+        if (useGradient) lr.rasterizeGradient(a.getX(), a.getY(), b.getX(), b.getY(), c1, c2);
+        else             lr.rasterize(a.getX(), a.getY(), b.getX(), b.getY());
     }
 
     private void clearAll() {
@@ -110,19 +121,18 @@ public class Controller2D { //řídící třída, která zpracovává uživatels
         if (!shift) return new Point(mx, my);
 
         int ax = a.getX(), ay = a.getY();
-        int dx = mx - ax, dy = my - ay;
-        int adx = Math.abs(dx), ady = Math.abs(dy);
+        int dx = mx - ax, dy = my - ay;             //posuny se směrem
+        int adx = Math.abs(dx), ady = Math.abs(dy); //velikost posunu
 
-        if (adx > 2*ady) {                 //horizontála když delta "x" je větší jak 2* delta "y" 
+        if (adx > 2*ady) {                          //horizontála když delta "x" je větší jak 2* delta "y" 
             return new Point(mx, ay);
-        } else if (ady > 2*adx) {          //vertikála když delta "y" je větší jak 2* delta "x"
+        } else if (ady > 2*adx) {                   //vertikála když delta "y" je větší jak 2* delta "x"
             return new Point(ax, my);
-        } else {                           //diagonála 45°
+        } else {                                    //diagonála 45°
             int d  = Math.min(adx, ady);
             int sx = Integer.signum(dx);
             int sy = Integer.signum(dy);
             return new Point(ax + sx*d, ay + sy*d);
         }
     }
-
 }

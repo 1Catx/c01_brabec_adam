@@ -17,4 +17,8 @@ public abstract class LineRasterizer {
     public void rasterize(int x1, int y1, int x2, int y2) {
 
     }
+
+    public void rasterizeGradient(int x1, int y1, int x2, int y2, int c1, int c2) {
+        
+    }
 }
