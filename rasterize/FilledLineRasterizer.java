@@ -13,8 +13,9 @@ public class FilledLineRasterizer extends LineRasterizer {
         rasterize(line.getX1(), line.getY1(), line.getX2(), line.getY2());
     }
 
+    //https://www.geeksforgeeks.org/computer-graphics/dda-line-generation-algorithm-computer-graphics
     @Override
-    public void rasterize(int x1, int y1, int x2, int y2) { //https://www.geeksforgeeks.org/computer-graphics/dda-line-generation-algorithm-computer-graphics
+    public void rasterize(int x1, int y1, int x2, int y2) { 
         int dx = x2 - x1; int dy = y2 - y1;
 
         int steps = Math.max(Math.abs(dx), Math.abs(dy));
@@ -60,10 +61,4 @@ public class FilledLineRasterizer extends LineRasterizer {
             y += yInc;
         }
     }
-
-     /*
-    git add .
-    git commit -m "message"
-    git push
-      */
 }

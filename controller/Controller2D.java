@@ -17,7 +17,6 @@ public class Controller2D { //řídící třída, která zpracovává uživatels
     private Point preview = null; //dočasná pozice při tažení
     private boolean dragging = false;
     
-    /* barevný gradient */
     private boolean useGradient = false;
     private int c1 = 0xFFFF0000;
     private int c2 = 0xFF0000FF;
@@ -124,11 +123,9 @@ public class Controller2D { //řídící třída, která zpracovává uživatels
         int dx = mx - ax, dy = my - ay;             //posuny se směrem
         int adx = Math.abs(dx), ady = Math.abs(dy); //velikost posunu
 
-        if (adx > 2*ady) {                          //horizontála když delta "x" je větší jak 2* delta "y" 
-            return new Point(mx, ay);
-        } else if (ady > 2*adx) {                   //vertikála když delta "y" je větší jak 2* delta "x"
-            return new Point(ax, my);
-        } else {                                    //diagonála 45°
+        if (adx > 2*ady) return new Point(mx, ay);                         //horizontála když delta "x" je větší jak 2* delta "y"   
+        else if (ady > 2*adx) return new Point(ax, my);                   //vertikála když delta "y" je větší jak 2* delta "x"
+        else {                                                           //diagonála 45°
             int d  = Math.min(adx, ady);
             int sx = Integer.signum(dx);
             int sy = Integer.signum(dy);

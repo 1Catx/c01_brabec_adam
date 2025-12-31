@@ -2,7 +2,7 @@ package view;
 
 import javax.swing.*;
 
-public class Window extends JFrame { //vytvoří instanci *Panelu*, do kterého se poté kreslí
+public class Window extends JFrame { //vytvoří instanci Panelu
 
     private final Panel panel;
 
